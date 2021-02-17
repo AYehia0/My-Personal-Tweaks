@@ -53,7 +53,7 @@ Fix (run multiply times):
 
 ## Keyboard
 
-I like using my keyboard, so i have a lot of keybinding, check out my WM
+I like using my keyboard, so i have a lot of keybinding, check out my [wm](https://github.com/AYehia0/Dotfiles/blob/master/sxhkd/sxhkdrc)
 
 one thing, i don't use CAPS lock key(vim), instead it's now esc : ```setxkbmap -option caps:escape ```
 
