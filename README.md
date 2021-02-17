@@ -50,3 +50,10 @@ For now i don't have a clue how to permanently fix it, since i am sure what exac
 
 Fix (run multiply times):
 ```xset dpms force off```
+
+## Keyboard
+
+I like using my keyboard, so i have a lot of keybinding, check out my WM
+
+one thing, i don't use CAPS lock key(vim), instead it's now esc : ```setxkbmap -option caps:escape ```
+
