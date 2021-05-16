@@ -57,3 +57,9 @@ I like using my keyboard, so i have a lot of keybinding, check out my [wm](https
 
 one thing, i don't use CAPS lock key(vim), instead it's now esc : ```setxkbmap -option caps:escape ```
 
+## Poweroff
+
+change the power button handler ```#HandlePowerKey=poweroff``` to ```ignore``` to prevent accidental presses:
+
+``` $ vim /etc/systemd/logind.conf```
+
