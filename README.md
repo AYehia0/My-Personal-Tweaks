@@ -63,3 +63,23 @@ change the power button handler ```#HandlePowerKey=poweroff``` to ```ignore``` t
 
 ``` $ vim /etc/systemd/logind.conf```
 
+## powertop 
+
+Install powertop to monitor battary usage.
+further modification :
+	
+- create a service to run at start up
+	
+	```sudo touch /etc/systemd/system/powertop.service```
+```
+	[Unit]
+	Description=Powertop tunings
+
+	[Service]
+	Type=oneshot
+	ExecStart=/usr/bin/powertop --auto-tune
+
+	[Install]
+	WantedBy=multi-user.target
+```
+- enable it ```sudo systemctl enable powertop.service```
