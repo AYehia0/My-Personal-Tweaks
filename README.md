@@ -83,3 +83,27 @@ further modification :
 	WantedBy=multi-user.target
 ```
 - enable it ```sudo systemctl enable powertop.service```
+
+## mounting other partitions 
+
+use ```fstab``` or in case of ```not authorized to perform this operation``` :
+
+create a rule on polkit:
+
+group : ```id```
+
+
+```
+/etc/polkit-1/rules.d/49-nopasswd_global.rules
+
+/* Allow members of the wheel group to execute any actions
+ * without password authentication, similar to "sudo NOPASSWD:"
+ */
+polkit.addRule(function(action, subject) {
+    if (subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+    }
+});
+
+```
+read more : https://wiki.archlinux.org/title/Polkit
