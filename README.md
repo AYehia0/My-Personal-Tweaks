@@ -107,3 +107,10 @@ polkit.addRule(function(action, subject) {
 
 ```
 read more : https://wiki.archlinux.org/title/Polkit
+
+## can't change the brightness
+
+1. Install [light](https://github.com/haikarainen/light)  : ```sudo pacman -S light```
+2. Run it as sudo without password by editing the sudoers file : ```sudo visudo -f /etc/sudoers```
+3. Add this : ```none ALL=(root) NOPASSWD: /path/to/light```
+4. Change the command to run with sudo in the ```sxhkd```
