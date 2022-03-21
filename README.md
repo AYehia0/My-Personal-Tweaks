@@ -114,3 +114,10 @@ read more : https://wiki.archlinux.org/title/Polkit
 2. Run it as sudo without password by editing the sudoers file : ```sudo visudo -f /etc/sudoers```
 3. Add this : ```none ALL=(root) NOPASSWD: /path/to/light```
 4. Change the command to run with sudo in the ```sxhkd```
+
+## Fix clipboard issues
+
+1. Install a clipboard manager : ```parcellite```
+2. Make sure to run it : ```Parcellite by default runs as daemon.```
+3. ProTip : make sure to run flameshot also
+4. ProTip : neovim uses xclip
