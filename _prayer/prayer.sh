@@ -1,40 +1,38 @@
-#!/bin/bash
-
-# start the script 
-# get the data from the api monthly
-# save the data offline
-# fetch from api after one month
+#!/bin/sh
 
 # getting today's date
-API_URL="http://api.aladhan.com/v1/calendar?latitude=30.5503&longitude=31.0106&method=5&month=5&year=2022"
+CURRENT_YEAR=`date +"%Y"`
 CURRENT_MONTH=`date '+%m'`
 CURRENT_DAY=`date '+%d'`
 CURRENT_TIME=`date +"%H:%M"`
 PRAYER_TIMES_LOC=`pwd`/$CURRENT_MONTH.json
+CITY="cairo"
+COUNTRY="EG"
+METHOD=5
+API_URL="http://api.aladhan.com/v1/calendarByCity?city=$CITY&country=$COUNTRY&method=$METHOD&month=$CURRENT_MONTH&year=$CURRENT_YEAR"
 
 # convert date
 get_date() {
     date --date="$1" +"%H:%M"
 }
 
+# check if the data exists on location
 if [[ -f "$PRAYER_TIMES_LOC" ]]; 
 then
-    echo "Data exists at path : $PRAYER_TIMES_LOC"
+    #echo "Data exists at path : $PRAYER_TIMES_LOC"
 
     # get current day data
     IND=$(($CURRENT_DAY + 1))
-    #TIMES="jq -r '.[${IND}] | to_entries | .[]' $PRAYER_TIMES_LOC"
 
-    # good to learn too
     # read each item in the JSON array to an item in the Bash array
     readarray -t items < <(jq -c ".[${IND}] | to_entries | .[]" $PRAYER_TIMES_LOC )
-  
+
     athans=()
 
     # Calculate the time difference for prayers
     for item in "${items[@]}"; do
 
-        key=$(jq '.key' <<< $item)
+        key=$(jq -r '.key' <<< $item)
 
         time=$(jq -r '.value' <<< $item)
 
@@ -43,7 +41,7 @@ then
 
         diffTime=$(date -d @${seconds} +"%H:%M" -u)
         
-        echo "$key time is : $time , remaining time : $diffTime , seconds : $seconds"
+        #echo "$key time is : $time , remaining time : $diffTime , seconds : $seconds"
 
         athans+=($key","$diffTime)
 
@@ -54,6 +52,7 @@ then
     # splitting on comma
     prayer=(${first_val//,/ })
     min=${prayer[1]}
+    p_min=${prayer[0]}
     for athan in "${athans[@]}"; do
         athan_value=(${athan//,/ })
         if [[ $(get_date "${athan_value[1]}") < $(get_date "$min") ]]; 
@@ -63,7 +62,8 @@ then
         fi
     done
 
-    echo "Min time $min, Prayer : $p_min"
+    # pip this output to polybar
+    echo "$p_min : $min"
 else
   # download and parse
   # to_entries | map_values(.value + {day: .key}) | map(.timings + {day : .day})
