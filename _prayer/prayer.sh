@@ -22,7 +22,7 @@ then
     #echo "Data exists at path : $PRAYER_TIMES_LOC"
 
     # get current day data
-    IND=$(($CURRENT_DAY + 1))
+    IND=$(($CURRENT_DAY))
 
     # read each item in the JSON array to an item in the Bash array
     readarray -t items < <(jq -c ".[${IND}] | to_entries | .[]" $PRAYER_TIMES_LOC )
