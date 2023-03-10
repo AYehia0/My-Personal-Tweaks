@@ -9,7 +9,7 @@ PRAYER_TIMES_LOC=`pwd`/$CURRENT_MONTH.json
 CITY="cairo"
 COUNTRY="EG"
 METHOD=5
-API_URL="http://api.aladhan.com/v1/calendarByCity?city=$CITY&country=$COUNTRY&method=$METHOD&month=$CURRENT_MONTH&year=$CURRENT_YEAR"
+API_URL="http://api.aladhan.com/v1/calendarByCity/$CURRENT_YEAR/$CURRENT_MONTH?city=$CITY&country=$COUNTRY&method=$METHOD&month=$CURRENT_MONTH&year=$CURRENT_YEAR"
 
 # convert date
 get_date() {
